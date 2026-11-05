@@ -18,6 +18,15 @@ npm run preview
 
 Wynik kompilacji znajduje się w `dist/`. Zwykły hosting OVH obsługuje te pliki bez Node.js na serwerze. Projekt nie zawiera automatycznej publikacji.
 
-Treści edytuje się w `src/pages/index.astro`, wygląd w `src/styles/global.css`. Oferta obejmuje wskazane usługi: kolportaż materiałów, reklamę w taxi, kampanie Meta i Google Ads oraz akcje promocyjne. Opisy usług są propozycją redakcyjną do zatwierdzenia. Grafika geometryczna jest autorską ilustracją SVG, nie przedstawia realizacji firmy. Kontakt używa odnośnika `mailto:` i wymaga klienta poczty; nie ma backendu ani formularza zbierającego dane. Strona nie korzysta z zewnętrznych fontów ani skryptów analitycznych. Osadzona mapa pobiera zasoby z OpenStreetMap i pokazuje Szczecin, bez oznaczenia dokładnego adresu siedziby; jej działanie wymaga dostępu do serwisu OpenStreetMap.
+Treści edytuje się w `src/pages/index.astro`, wygląd w `src/styles/global.css`. Oferta obejmuje wskazane usługi: kolportaż materiałów, reklamę w taxi, kampanie Meta i Google Ads oraz akcje promocyjne. Opisy usług są propozycją redakcyjną do zatwierdzenia. Grafika geometryczna jest autorską ilustracją SVG, nie przedstawia realizacji firmy. Kontakt i formularz wyceny korzystają z `mailto:`; nie ma backendu wysyłającego pocztę ani zapisu danych na stronie. Formularz przygotowuje wiadomość, którą użytkownik sam wysyła ze swojego programu pocztowego. Treść można również skopiować. Strona nie korzysta z zewnętrznych fontów ani skryptów analitycznych. Osadzona mapa pobiera zasoby z OpenStreetMap i pokazuje Szczecin, bez oznaczenia dokładnego adresu siedziby; jej działanie wymaga dostępu do serwisu OpenStreetMap.
 
 Kierunek wizualny: czarno-biała typografia, szarości, siatka i rytm linii. Punktem odniesienia są zasady szwajcarskiego projektowania graficznego (Josef Müller-Brockmann) oraz geometryczny minimalizm (Sol LeWitt). Projekt nie wykorzystuje reprodukcji ich prac ani zewnętrznych materiałów graficznych. Ikona strzałki jest wspólnym komponentem `src/components/Arrow.astro`.
+
+
+## Zdjęcie foundera i kolejne osoby
+
+Dane kart są w `src/data/team.ts`. Karta ma szerokość do 220 px i proporcje zdjęcia 4:5. Aby zastąpić prostokąt zdjęciem, dodaj plik np. `public/team/founder.jpg` i ustaw w pierwszym wpisie `photo: '/team/founder.jpg'`, `name` oraz opis `alt`. Zdjęcia są prezentowane w szarości. Aby dodać kolejną osobę, dopisz obiekt z polami `name`, `role`, `photo`, `alt` do tablicy `team` — układ utworzy kolejną kartę automatycznie.
+
+## Formularz wyceny
+
+Przycisk „Wyceń kampanię” otwiera dostępne z klawiatury okno dialogowe. Formularz wymaga wyboru co najmniej jednej usługi, imienia lub firmy, poprawnego e-maila, obszaru działań i krótkiego opisu celu. Termin i budżet mogą pozostać do ustalenia. Po walidacji powstaje zakodowany odnośnik `mailto:` oraz treść do ręcznego skopiowania. Przygotowanie wiadomości nie oznacza jej wysłania. Wysyłanie bezpośrednio ze strony wymaga osobnego podłączenia backendu lub usługi formularzy. Bez JavaScript dostępny jest zwykły kontakt e-mail.

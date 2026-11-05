@@ -1,0 +1,83 @@
+---
+import Arrow from './Arrow.astro';
+---
+<dialog id="quote-dialog" aria-labelledby="quote-heading" aria-describedby="quote-intro">
+  <div class="quote-panel">
+    <div class="quote-top"><p class="eyebrow">ZAPYTANIE / WYCENA</p><button class="quote-close" type="button" aria-label="Zamknij formularz">×</button></div>
+    <h2 id="quote-heading">Wyceń kampanię.</h2>
+    <p id="quote-intro">Kilka informacji na dobry początek. Na ich podstawie przygotujemy propozycję dopasowaną do Twoich potrzeb.</p>
+    <form id="quote-form">
+      <fieldset><legend>Co Cię interesuje? <span>(wybierz co najmniej jedną usługę)</span></legend><div class="quote-services">
+        {['Kolportaż materiałów', 'Reklama w taxi', 'Meta Ads', 'Google Ads', 'Akcje promocyjne', 'Potrzebuję doradztwa'].map(service => <label><input type="checkbox" name="service" value={service} /><span>{service}</span></label>)}
+      </div><p class="field-error" id="service-error" role="alert" hidden>Wybierz co najmniej jedną usługę.</p></fieldset>
+      <div class="quote-fields">
+        <label>Imię / firma <input name="name" autocomplete="organization" required maxlength="120" placeholder="Jak się do Ciebie zwracać?" /></label>
+        <label>E-mail <input type="email" name="email" autocomplete="email" required maxlength="180" placeholder="twoj@adres.pl" /></label>
+        <label>Obszar działań <input name="area" required maxlength="160" placeholder="Np. Szczecin, województwo lub cała Polska" /></label>
+        <label>Planowany start <input name="timing" maxlength="120" placeholder="Np. wrzesień / do ustalenia (opcjonalnie)" /></label>
+        <label class="quote-wide">Orientacyjny budżet <select name="budget"><option>Do ustalenia</option><option>Do 2 000 zł</option><option>2 000–5 000 zł</option><option>5 000–10 000 zł</option><option>Powyżej 10 000 zł</option></select><span class="field-hint">Łączny planowany budżet kampanii. Jeśli jeszcze go nie znasz, wybierz „Do ustalenia”.</span></label>
+        <label class="quote-wide">Co chcesz promować i osiągnąć? <textarea name="brief" rows="3" required maxlength="2000" placeholder="Opisz produkt, odbiorców i cel. Przy kolportażu podaj nakład, jeśli go znasz."></textarea></label>
+      </div>
+      <p class="quote-note">Formularz przygotuje e-mail do biuro@bennyinvest.pl. Wyślesz go samodzielnie w swoim programie pocztowym. Dane nie są zapisywane na stronie.</p>
+      <button class="quote-submit" type="submit">Przygotuj e-mail <Arrow /></button>
+    </form>
+    <section id="quote-result" aria-labelledby="quote-result-heading" hidden>
+      <h3 id="quote-result-heading">Zapytanie jest przygotowane.</h3>
+      <p>To jeszcze nie wysyła wiadomości. Otwórz program pocztowy i wyślij ją do nas albo skopiuj treść i wyślij na biuro@bennyinvest.pl.</p>
+      <a id="quote-mail" class="quote-submit" href="mailto:biuro@bennyinvest.pl">Otwórz program pocztowy <Arrow /></a>
+      <label class="quote-copy-label">Treść do skopiowania<textarea id="quote-copy" rows="7" readonly></textarea></label>
+      <button id="quote-edit" class="text-link" type="button">Popraw dane</button>
+    </section>
+  </div>
+</dialog>
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('#quote-dialog')!;
+  const form = document.querySelector<HTMLFormElement>('#quote-form')!;
+  const result = document.querySelector<HTMLElement>('#quote-result')!;
+  const serviceError = document.querySelector<HTMLElement>('#service-error')!;
+  let opener: HTMLElement | null = null;
+  document.querySelectorAll<HTMLButtonElement>('[data-open-quote]').forEach(button => {
+    button.addEventListener('click', () => {
+      opener = button;
+      dialog.showModal();
+      document.body.classList.add('quote-open');
+    });
+  });
+  dialog.querySelector('.quote-close')!.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+  dialog.addEventListener('close', () => {
+    document.body.classList.remove('quote-open');
+    opener?.focus();
+  });
+  form.addEventListener('change', () => { serviceError.hidden = true; });
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const services = data.getAll('service').map(String);
+    if (!services.length) {
+      serviceError.hidden = false;
+      form.querySelector<HTMLInputElement>('[name="service"]')!.focus();
+      return;
+    }
+    const value = (key: string) => String(data.get(key) ?? '').trim();
+    const body = [
+      'Proszę o wycenę kampanii.', '',
+      `Imię / firma: ${value('name')}`, `E-mail: ${value('email')}`,
+      `Usługi: ${services.join(', ')}`, `Obszar działań: ${value('area')}`,
+      `Planowany start: ${value('timing') || 'Do ustalenia'}`, `Budżet: ${value('budget')}`,
+      '', 'Opis i cel kampanii:', value('brief'),
+    ].join('\n');
+    document.querySelector<HTMLAnchorElement>('#quote-mail')!.href = `mailto:biuro@bennyinvest.pl?subject=${encodeURIComponent('Zapytanie o wycenę kampanii')}&body=${encodeURIComponent(body)}`;
+    document.querySelector<HTMLTextAreaElement>('#quote-copy')!.value = body;
+    form.hidden = true;
+    result.hidden = false;
+    const heading = document.querySelector<HTMLElement>('#quote-result-heading')!;
+    heading.tabIndex = -1;
+    heading.focus();
+  });
+  document.querySelector('#quote-edit')!.addEventListener('click', () => {
+    result.hidden = true;
+    form.hidden = false;
+    form.querySelector<HTMLInputElement>('[name="name"]')!.focus();
+  });
+</script>

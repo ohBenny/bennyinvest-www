@@ -122,3 +122,60 @@ footer a span { margin-left: 20px; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
 }
+
+/* Zespół — kolejne karty powstają z wpisów w src/data/team.ts. */
+.team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 220px)); gap: 28px; margin-top: 50px; }
+.team-card { margin: 0; }
+.team-photo { aspect-ratio: 4 / 5; background: #2c2c2c; border: 1px solid #5d5d5a; }
+.team-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); }
+.team-placeholder { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; color: #b5b5b1; font-size: 10px; }
+.team-placeholder>span:first-child { font-size: 30px; font-weight: 200; }
+.team-card figcaption { margin-top: 13px; }
+.team-card h3 { font-size: 15px; margin-bottom: 5px; }
+.team-card figcaption p { font-size: 11px; color: #b5b5b1; }
+button { cursor: pointer; }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.quote-trigger { display: inline-flex; align-items: center; gap: 20px; background: #191919; color: #f5f5f2; border: 1px solid #191919; padding: 13px 17px; font-size: 12px; white-space: nowrap; }
+.quote-trigger:hover, .quote-submit:hover { background: #414141; }
+body.quote-open { overflow: hidden; }
+#quote-dialog { color: #191919; background: #f5f5f2; border: 1px solid #bcbcb8; padding: 0; margin: auto; width: min(700px, calc(100% - 32px)); max-height: calc(100dvh - 48px); overflow-y: auto; }
+#quote-dialog::backdrop { background: #0009; }
+.quote-panel { padding: 32px; }
+.quote-top { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 20px; }
+.quote-close { font-size: 28px; width: 44px; height: 44px; line-height: 1; border: 1px solid #bcbcb8; }
+#quote-heading { font-size: 39px; }
+#quote-intro { font-size: 13px; line-height: 1.8; color: #5e5e5a; margin-top: 18px; margin-bottom: 25px; }
+#quote-form fieldset { border: 0; padding: 0; margin: 0 0 24px; }
+#quote-form legend { font-size: 12px; margin-bottom: 12px; }
+#quote-form legend span { color: #686865; }
+.quote-services { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.quote-services label { display: flex; align-items: center; gap: 9px; font-size: 12px; cursor: pointer; }
+.quote-services input { width: 16px; height: 16px; accent-color: #191919; flex-shrink: 0; }
+.quote-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 19px; }
+.quote-fields label, .quote-copy-label { display: flex; flex-direction: column; gap: 8px; font-size: 12px; }
+.quote-fields input, .quote-fields select, .quote-fields textarea, #quote-copy { border: 1px solid #aaa; padding: 11px; background: transparent; width: 100%; min-width: 0; font-size: 14px; border-radius: 0; }
+.quote-fields input::placeholder, .quote-fields textarea::placeholder { color: #71716d; opacity: 1; }
+.quote-wide { grid-column: 1 / -1; }
+.quote-fields textarea, #quote-copy { resize: vertical; }
+.field-hint, .quote-note { color: #63635f; font-size: 11px; line-height: 1.7; }
+.field-error { font-size: 12px; margin-top: 12px; text-decoration: underline; }
+.quote-note { margin-block: 24px 16px; }
+.quote-submit { display: inline-flex; justify-content: space-between; align-items: center; gap: 25px; color: #fff; background: #191919; padding: 15px 20px; font-size: 13px; min-height: 48px; }
+.quote-submit:hover { text-decoration: none; }
+#quote-result h3 { font-size: 26px; letter-spacing: -.04em; }
+#quote-result>p { font-size: 13px; line-height: 1.8; margin-block: 18px 24px; color: #5e5e5a; }
+.quote-copy-label { margin-top: 25px; }
+#quote-copy { font-size: 12px; }
+.noscript-note { padding-block: 20px; font-size: 13px; }
+@media (max-width: 650px) {
+  header { gap: 10px; }
+  header nav { gap: 0; }
+  .quote-trigger { font-size: 10px; gap: 8px; padding: 11px 10px; }
+  .quote-trigger .arrow-icon { width: 14px; height: 14px; }
+  .team-grid { margin-top: 36px; }
+  .quote-panel { padding: 20px; }
+  #quote-heading { font-size: 32px; }
+  .quote-fields { grid-template-columns: 1fr; gap: 17px; }
+  .quote-services { grid-template-columns: 1fr; }
+  #quote-dialog { max-height: calc(100dvh - 24px); }
+}
