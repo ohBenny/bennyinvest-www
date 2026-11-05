@@ -7,8 +7,9 @@ import Arrow from './Arrow.astro';
     <h2 id="quote-heading">Wyceń kampanię.</h2>
     <p id="quote-intro">Kilka informacji na dobry początek. Na ich podstawie przygotujemy propozycję dopasowaną do Twoich potrzeb.</p>
     <form id="quote-form">
+      <div class="quote-trap" aria-hidden="true"><label>Strona internetowa<input name="website" tabindex="-1" autocomplete="off" /></label></div>
       <fieldset><legend>Co Cię interesuje? <span>(wybierz co najmniej jedną usługę)</span></legend><div class="quote-services">
-        {['Kolportaż materiałów', 'Reklama w taxi', 'Meta Ads', 'Google Ads', 'Akcje promocyjne', 'Potrzebuję doradztwa'].map(service => <label><input type="checkbox" name="service" value={service} /><span>{service}</span></label>)}
+        {['Kolportaż materiałów', 'Reklama w taxi', 'Meta Ads', 'Google Ads', 'Akcje promocyjne', 'Strony WWW i obsługa', 'Potrzebuję doradztwa'].map(service => <label><input type="checkbox" name="service" value={service} /><span>{service}</span></label>)}
       </div><p class="field-error" id="service-error" role="alert" hidden>Wybierz co najmniej jedną usługę.</p></fieldset>
       <div class="quote-fields">
         <label>Imię / firma <input name="name" autocomplete="organization" required maxlength="120" placeholder="Jak się do Ciebie zwracać?" /></label>
@@ -18,15 +19,18 @@ import Arrow from './Arrow.astro';
         <label class="quote-wide">Orientacyjny budżet <select name="budget"><option>Do ustalenia</option><option>Do 2 000 zł</option><option>2 000–5 000 zł</option><option>5 000–10 000 zł</option><option>Powyżej 10 000 zł</option></select><span class="field-hint">Łączny planowany budżet kampanii. Jeśli jeszcze go nie znasz, wybierz „Do ustalenia”.</span></label>
         <label class="quote-wide">Co chcesz promować i osiągnąć? <textarea name="brief" rows="3" required maxlength="2000" placeholder="Opisz produkt, odbiorców i cel. Przy kolportażu podaj nakład, jeśli go znasz."></textarea></label>
       </div>
-      <p class="quote-note">Formularz przygotuje e-mail do biuro@bennyinvest.pl. Wyślesz go samodzielnie w swoim programie pocztowym. Dane nie są zapisywane na stronie.</p>
-      <button class="quote-submit" type="submit">Przygotuj e-mail <Arrow /></button>
+      <p class="quote-note">Dane z formularza wykorzystamy do obsługi Twojego zapytania. Wiadomość trafi do Benny Invest Sp. z o.o. na biuro@bennyinvest.pl. Nie zapisujemy jej w przeglądarce.</p>
+      <p id="quote-status" class="quote-status" role="status" aria-live="polite"></p>
+      <button class="quote-submit" type="submit">Wyślij zapytanie <Arrow /></button>
     </form>
     <section id="quote-result" aria-labelledby="quote-result-heading" hidden>
-      <h3 id="quote-result-heading">Zapytanie jest przygotowane.</h3>
-      <p>To jeszcze nie wysyła wiadomości. Otwórz program pocztowy i wyślij ją do nas albo skopiuj treść i wyślij na biuro@bennyinvest.pl.</p>
+      <h3 id="quote-result-heading">Dziękujemy za zapytanie.</h3>
+      <p id="quote-result-message"></p>
+      <div id="quote-fallback">
       <a id="quote-mail" class="quote-submit" href="mailto:biuro@bennyinvest.pl">Otwórz program pocztowy <Arrow /></a>
       <label class="quote-copy-label">Treść do skopiowania<textarea id="quote-copy" rows="7" readonly></textarea></label>
-      <button id="quote-edit" class="text-link" type="button">Popraw dane</button>
+      </div>
+      <button id="quote-edit" class="text-link" type="button">Wróć do formularza</button>
     </section>
   </div>
 </dialog>
@@ -50,7 +54,7 @@ import Arrow from './Arrow.astro';
     opener?.focus();
   });
   form.addEventListener('change', () => { serviceError.hidden = true; });
-  form.addEventListener('submit', event => {
+  form.addEventListener('submit', async event => {
     event.preventDefault();
     const data = new FormData(form);
     const services = data.getAll('service').map(String);
@@ -69,9 +73,36 @@ import Arrow from './Arrow.astro';
     ].join('\n');
     document.querySelector<HTMLAnchorElement>('#quote-mail')!.href = `mailto:biuro@bennyinvest.pl?subject=${encodeURIComponent('Zapytanie o wycenę kampanii')}&body=${encodeURIComponent(body)}`;
     document.querySelector<HTMLTextAreaElement>('#quote-copy')!.value = body;
+    const submit = form.querySelector<HTMLButtonElement>('[type="submit"]')!;
+    if (submit.disabled) return;
+    submit.disabled = true;
+    const status = document.querySelector<HTMLElement>('#quote-status')!;
+    status.textContent = 'Wysyłanie zapytania…';
+    const message = document.querySelector<HTMLElement>('#quote-result-message')!;
+    const heading = document.querySelector<HTMLElement>('#quote-result-heading')!;
+    const fallback = document.querySelector<HTMLElement>('#quote-fallback')!;
+    try {
+      const response = await fetch('/api/quote.php', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        signal: AbortSignal.timeout(20000),
+        body: JSON.stringify({ services, name: value('name'), email: value('email'), area: value('area'), timing: value('timing'), budget: value('budget'), brief: value('brief'), website: value('website') }),
+      });
+      const payload = await response.json();
+      if (!response.ok || payload.ok !== true) throw new Error(typeof payload.message === 'string' ? payload.message : 'Nie udało się wysłać zapytania.');
+      heading.textContent = 'Dziękujemy za zapytanie.';
+      message.textContent = 'Twoje zapytanie zostało przekazane do wysyłki. Odpowiemy na podany adres e-mail.';
+      fallback.hidden = true;
+      form.reset();
+    } catch (error) {
+      heading.textContent = 'Nie udało się potwierdzić wysyłki.';
+      message.textContent = (error instanceof Error && !['TimeoutError', 'TypeError', 'SyntaxError'].includes(error.name) ? error.message + ' ' : '') + 'Możesz wysłać zapytanie ze swojego programu pocztowego, skopiować treść lub zadzwonić: +48 576 243 368. Po utracie połączenia sprawdź, czy wiadomość nie została już obsłużona, zanim wyślesz ponownie.';
+      fallback.hidden = false;
+    } finally {
+      submit.disabled = false;
+      status.textContent = '';
+    }
     form.hidden = true;
     result.hidden = false;
-    const heading = document.querySelector<HTMLElement>('#quote-result-heading')!;
     heading.tabIndex = -1;
     heading.focus();
   });

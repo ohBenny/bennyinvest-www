@@ -1,6 +1,6 @@
 # Benny Invest
 
-Statyczna strona one-page w Astro i Tailwind CSS 4. Node.js 24 LTS, npm.
+One-page w Astro i Tailwind CSS 4, Node.js 24 LTS. Strona generuje statyczne HTML/CSS/JS; bezpośrednia wysyłka zapytań wymaga PHP 8.1+ z działającym transportem `mail()` na hostingu.
 
 ```sh
 export ASTRO_TELEMETRY_DISABLED=1
@@ -8,7 +8,7 @@ npm ci
 npm run dev
 ```
 
-Podgląd deweloperski korzysta domyślnie z portu 4321. Kompilacja i podgląd wersji produkcyjnej:
+Serwer Astro domyślnie korzysta z portu 4321. Sam Astro nie wykonuje PHP — formularz w takim podglądzie pokaże opcję kontaktu e-mail zamiast potwierdzenia wysyłki.
 
 ```sh
 npm run check
@@ -16,26 +16,40 @@ npm run build
 npm run preview
 ```
 
-Wynik kompilacji znajduje się w `dist/`. Zwykły hosting OVH obsługuje te pliki bez Node.js na serwerze. Projekt nie zawiera automatycznej publikacji.
+`dist/` zawiera statyczną stronę i `api/quote.php`. Do lokalnego podglądu z backendem użyj PHP:
 
-Treści edytuje się w `src/pages/index.astro`, wygląd w `src/styles/global.css`. Oferta obejmuje wskazane usługi: kolportaż materiałów, reklamę w taxi, kampanie Meta i Google Ads oraz akcje promocyjne. Opisy usług są propozycją redakcyjną do zatwierdzenia. Grafika geometryczna jest autorską ilustracją SVG, nie przedstawia realizacji firmy. Kontakt i formularz wyceny korzystają z `mailto:`; nie ma backendu wysyłającego pocztę ani zapisu danych na stronie. Formularz przygotowuje wiadomość, którą użytkownik sam wysyła ze swojego programu pocztowego. Treść można również skopiować. Strona nie korzysta z zewnętrznych fontów ani skryptów analitycznych. Osadzona mapa pokazuje Szczecin, bez oznaczenia dokładnego adresu siedziby. Zasoby OpenStreetMap są pobierane dopiero po zgodzie użytkownika; jej działanie wymaga dostępu do tego serwisu.
+```sh
+php -S 127.0.0.1:8085 -t dist
+```
 
-Kierunek wizualny: czarno-biała typografia, szarości, siatka i rytm linii. Punktem odniesienia są zasady szwajcarskiego projektowania graficznego (Josef Müller-Brockmann) oraz geometryczny minimalizm (Sol LeWitt). Projekt nie wykorzystuje reprodukcji ich prac ani zewnętrznych materiałów graficznych. Ikona strzałki jest wspólnym komponentem `src/components/Arrow.astro`.
+Samo uruchomienie PHP nie konfiguruje poczty. PHP CLI musi mieć transport sendmail; na hostingu OVH trzeba potwierdzić obsługę PHP, `mail()` oraz uprawnienia zapisu do katalogu tymczasowego. Wysyłka nie zadziała na hostingu obsługującym wyłącznie statyczne pliki. Nie publikowano strony na OVH. Projekt nie zawiera automatycznego wdrożenia.
 
+## Formularz
 
-## Zdjęcie foundera i kolejne osoby
+Okno „Wyceń kampanię” wymaga usługi, imienia lub firmy, poprawnego e-maila, obszaru działań i opisu. Termin oraz budżet mogą pozostać do ustalenia. Endpoint `/api/quote.php` wysyła wiadomości tylko do `biuro@bennyinvest.pl`. Nadawca jest stały; poprawny e-mail klienta trafia do `Reply-To`. Funkcja `mail()` potwierdza przekazanie do transportu, nie doręczenie do skrzynki.
 
-Dane kart są w `src/data/team.ts`. Karta ma szerokość do 220 px i proporcje zdjęcia 4:5. Aby zastąpić prostokąt zdjęciem, dodaj plik np. `public/team/founder.jpg` i ustaw w pierwszym wpisie `photo: '/team/founder.jpg'`, `name` oraz opis `alt`. Zdjęcia są prezentowane w szarości. Aby dodać kolejną osobę, dopisz obiekt z polami `name`, `role`, `photo`, `alt` do tablicy `team` — układ utworzy kolejną kartę automatycznie.
+Backend waliduje dane, ogranicza rozmiar zapytania, sprawdza pochodzenie i format JSON, korzysta z pola pułapki oraz limitu 3 prób na 10 minut dla adresu IP. Licznik w katalogu tymczasowym zawiera hashe adresów i znaczniki czasu; plik ma ograniczony rozmiar przez limit wpisów. Za reverse proxy bez konfiguracji odrębnego zaufania limit może być wspólny dla użytkowników tego proxy. Po błędzie lub braku potwierdzenia formularz zachowuje treść i udostępnia kontakt `mailto:` oraz możliwość kopiowania. Nie zapisuje zapytania w pamięci przeglądarki ani bazie danych.
 
-## Formularz wyceny
+Wymagany test na docelowym hostingu: wysłać uzgodnione zapytanie, sprawdzić skrzynkę odbiorczą i możliwość odpowiedzi. Nie przeprowadzono jeszcze testu doręczania na OVH. Testy lokalne używają przechwycenia poczty; niczego nie wysyłają do zewnętrznych skrzynek.
 
-Przycisk „Wyceń kampanię” otwiera dostępne z klawiatury okno dialogowe. Formularz wymaga wyboru co najmniej jednej usługi, imienia lub firmy, poprawnego e-maila, obszaru działań i krótkiego opisu celu. Termin i budżet mogą pozostać do ustalenia. Po walidacji powstaje zakodowany odnośnik `mailto:` oraz treść do ręcznego skopiowania. Przygotowanie wiadomości nie oznacza jej wysłania. Wysyłanie bezpośrednio ze strony wymaga osobnego podłączenia backendu lub usługi formularzy. Bez JavaScript dostępny jest zwykły kontakt e-mail.
+```sh
+npm run build
+npm run test:quote
+```
 
+Test wymaga PHP CLI w PATH lub zmiennej `PHP_BIN` wskazującej jego plik wykonywalny. Sprawdza walidację, pochodzenie, adresata i Reply-To, limit prób oraz awarię transportu.
 
-## Partnerzy i prywatność
+## Treści i wygląd
 
-Pasek partnerów edytuje się w `src/data/partners.ts`. Aktualne wpisy są podpisanymi miejscami na logo — nie deklarują rzeczywistych współprac. Dla potwierdzonego partnera podaj nazwę, ścieżkę do logotypu z `public/partners/` i ustaw `placeholder: false`. Pasek można zatrzymać przyciskiem, zatrzymuje się również po najechaniu; respektuje ograniczenie ruchu w systemie.
+- `src/pages/index.astro`: usługi, hasło i dane spółki podane przez właściciela. Nie dodano niepodanego numeru budynku ani danych sądu rejestrowego lub kapitału.
+- `src/styles/global.css`: monochromatyczna oprawa, typografia i układ.
+- `src/data/team.ts`: founder i dwie karty pracowników. Dodaj zdjęcie np. `public/team/founder.jpg`, ustaw `photo: '/team/founder.jpg'`, imię i opis `alt`. Kolejna osoba to kolejny obiekt w tablicy. Zdjęcia do 220 px szerokości, proporcje 4:5, w szarości.
+- `src/data/partners.ts`: nazwy i logotypy. Aktualne wpisy to podpisane miejsca na logo, bez deklarowania rzeczywistych współprac. Dla potwierdzonego partnera ustaw nazwę, ścieżkę do pliku z `public/partners/` i `placeholder: false`.
 
-Baner prywatności pozwala zaakceptować mapę lub wybrać „Tylko niezbędne”. Wybór jest przechowywany w `localStorage` pod kluczem `benny-privacy-v1`. Przed zgodą nie jest ustawiany adres iframe mapy. Wybór można zmienić w stopce; cofnięcie zgody usuwa adres mapy i blokuje jej ponowne wczytanie. Wcześniejszego połączenia z dostawcą nie można cofnąć. Nie dodano trackerów ani reklamowych cookies. W przypadku braku dostępu do pamięci wybór działa w bieżącej karcie, ale nie przetrwa odświeżenia.
+Oferta obejmuje kolportaż, reklamę w taxi, Meta i Google Ads, akcje promocyjne oraz tworzenie i obsługę stron WWW. Opisy są propozycją redakcyjną. Inspiracje wizualne: szwajcarskie projektowanie graficzne (Josef Müller-Brockmann), geometryczny minimalizm (Sol LeWitt). Grafika SVG jest autorska; nie wykorzystuje reprodukcji prac artystów ani zdjęć realizacji.
 
-Panel admina nie jest częścią projektu; zarządzanie treścią odbywa się przez pliki danych.
+## Prywatność
+
+Bez trackerów i reklamowych cookies. Baner daje wybór: zaakceptowanie mapy lub „Tylko niezbędne”. Dopiero zgoda ustawia adres iframe OpenStreetMap. Wybór zapisuje się pod kluczem `benny-privacy-v1` w localStorage i można go zmienić w stopce. Cofnięcie zgody odłącza mapę, ale nie cofa wcześniejszych połączeń. Bez pamięci wybór działa do odświeżenia. Mapa przedstawia miasto, nie dokładny adres siedziby.
+
+Pasek partnerów ma przycisk zatrzymania, zatrzymuje się po najechaniu i respektuje systemowe ograniczenie ruchu. Panel admina nie jest częścią projektu.

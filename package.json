@@ -7,7 +7,8 @@
     "dev": "astro dev --host 0.0.0.0",
     "build": "astro build",
     "preview": "astro preview --host 0.0.0.0",
-    "check": "astro check"
+    "check": "astro check",
+    "test:quote": "node --test tests/quote.test.mjs"
   },
   "repository": {
     "type": "git",
