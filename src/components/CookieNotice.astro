@@ -1,0 +1,34 @@
+<section id="cookie-notice" class="cookie-notice" aria-labelledby="cookie-heading" hidden>
+  <p class="eyebrow">TWOJA PRYWATNOŚĆ</p><h2 id="cookie-heading">Mała informacja.<br />Twój wybór.</h2>
+  <p>Zapamiętujemy Twój wybór w pamięci przeglądarki. Nie używamy analitycznych ani reklamowych cookies. Za Twoją zgodą wczytamy mapę OpenStreetMap — jej dostawca otrzyma wtedy Twój adres IP i dane przeglądarki.</p>
+  <div class="cookie-actions"><button type="button" data-map-consent="allow">Akceptuję mapę</button><button type="button" data-map-consent="deny">Tylko niezbędne</button></div>
+</section>
+<script>
+  const key = 'benny-privacy-v1';
+  const notice = document.querySelector<HTMLElement>('#cookie-notice')!;
+  const map = document.querySelector<HTMLIFrameElement>('#location-map')!;
+  const placeholder = document.querySelector<HTMLElement>('#map-placeholder')!;
+  let choice: string | null = null;
+  try { choice = localStorage.getItem(key); } catch { /* Wybór działa też bez dostępu do pamięci. */ }
+  const updateMap = (allow: boolean) => {
+    map.hidden = !allow;
+    placeholder.hidden = allow;
+    if (allow) map.src = map.dataset.src!;
+    else map.removeAttribute('src');
+  };
+  updateMap(choice === 'allow');
+  notice.hidden = choice === 'allow' || choice === 'deny';
+  document.querySelectorAll<HTMLButtonElement>('[data-map-consent]').forEach(button => {
+    button.addEventListener('click', () => {
+      choice = button.dataset.mapConsent!;
+      try { localStorage.setItem(key, choice); } catch { /* Brak pamięci nie blokuje strony. */ }
+      updateMap(choice === 'allow');
+      notice.hidden = true;
+      if (notice.contains(document.activeElement)) document.querySelector<HTMLButtonElement>('#privacy-settings')!.focus({ preventScroll: true });
+    });
+  });
+  document.querySelector('#privacy-settings')!.addEventListener('click', () => {
+    notice.hidden = false;
+    notice.querySelector<HTMLButtonElement>('button')!.focus({ preventScroll: true });
+  });
+</script>
