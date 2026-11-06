@@ -177,7 +177,7 @@ body.quote-open { overflow: hidden; }
 
 /* Ukryte elementy pozostają ukryte niezależnie od reguł układu. */
 [hidden] { display: none !important; }
-.partners { padding-block: 70px; border-bottom: 1px solid #bcbcb8; }
+.partners { padding-block: 70px; }
 .partners-heading { display: flex; justify-content: space-between; align-items: end; gap: 25px; margin-bottom: 30px; }
 .partners-heading h2 { font-size: clamp(27px, 3vw, 40px); margin-top: 18px; }
 .partners-note { font-size: 12px; color: #656562; margin-top: 15px; }
@@ -281,7 +281,7 @@ body.quote-open { overflow: hidden; }
 .service-category-featured { border-left: 2px solid #191919; padding-left: 28px; }
 .service-title h4 { font-size: clamp(22px, 2.4vw, 34px); line-height: 1.15; letter-spacing: -.04em; max-width: 440px; font-weight: 400; }
 .service-scope h5 { font-size: 21px; font-weight: 400; letter-spacing: -.035em; margin-bottom: 15px; }
-.combined { border-top: 1px solid #bcbcb8; }
+
 .combined-example { padding: 38px; background: #ebebe7; }
 .combined-example>h3 { font-size: clamp(30px, 3.3vw, 46px); letter-spacing: -.05em; line-height: 1.15; margin-top: 24px; }
 .combined-intro { font-size: 13px; color: #595956; line-height: 1.85; max-width: 630px; margin-top: 22px; }
@@ -334,4 +334,15 @@ body.quote-open { overflow: hidden; }
 @media (max-width: 650px) {
   .services.section-space { padding-top: 50px; }
   .partners { --partner-card-width: 200px; }
+}
+
+/* Wyrównanie opisów kategorii i nagłówka partnerów. */
+.service-category-heading-right { display: flex; flex-direction: column; align-items: flex-end; gap: 16px; text-align: right; }
+.service-category-heading-right>p { margin: 0; }
+.partners-heading { display: grid; grid-template-columns: 1fr; justify-items: center; align-items: center; position: relative; }
+.partners-heading>div { text-align: center; }
+.partners-heading #partners-pause { position: absolute; right: 0; bottom: 0; }
+@media (max-width: 650px) {
+  .partners-heading { gap: 16px; }
+  .partners-heading #partners-pause { position: static; }
 }

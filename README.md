@@ -72,7 +72,7 @@ Po jednorazowym wgraniu nowej paczki do OVH katalog `test/zdjecia/` zawiera wszy
 
 ## Kategorie oferty
 
-`serviceCategories` w `src/data/services.ts` grupuje pięć usług w reklamę bezpośrednią (główna specjalizacja), mobilną i cyfrową. Nagłówki sprzedażowe są w polu `headline`. Ścieżki zdjęć, podpisy galerii i identyfikatory formularza pozostają bez zmian. Sekcja „Kampanie łączone” przedstawia przykładowy plan otwarcia restauracji; nie opisuje zrealizowanej kampanii. Obszar działania obejmuje Szczecin, Koszalin, Stargard i pozostałe miejscowości zachodniopomorskiego z dostępnością do indywidualnego potwierdzenia.
+`serviceCategories` w `src/data/services.ts` grupuje pięć usług w reklamę bezpośrednią (główna specjalizacja), mobilną i cyfrową. Nagłówki sprzedażowe są w polu `headline`. Ścieżki zdjęć, podpisy galerii i identyfikatory formularza pozostają bez zmian. Sekcja „Kampanie łączone” przedstawia przykładowy plan otwarcia restauracji; nie opisuje zrealizowanej kampanii. Obszar działania obejmuje Szczecin i pozostałe miejscowości zachodniopomorskiego z dostępnością do indywidualnego potwierdzenia.
 
 
 ## Mapa regionu
