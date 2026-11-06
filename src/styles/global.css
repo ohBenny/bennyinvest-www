@@ -304,3 +304,10 @@ body.quote-open { overflow: hidden; }
   .combined-bottom .quote-trigger { white-space: normal; text-align: left; }
   .coverage { padding-bottom: 50px; }
 }
+/* Zwięzłe wiersze podusług; opisy pozostają w kategoriach i szczegółach. */
+.service-item .service-row { grid-template-columns: minmax(0, 1fr) 44px; align-items: center; }
+.service-item .service-title { grid-column: 1; }
+.service-item .service-link { grid-column: 2; }
+.service-item .service-title h4 { max-width: 760px; }
+/* Odcienie szarości podkładu ustawiane są wewnątrz mapy; obrys pozostaje czerwony. */
+.map-frame iframe { filter: none; }

@@ -50,7 +50,7 @@ Oferta obejmuje kolportaż, reklamę w taxi, Meta i Google Ads, akcje promocyjne
 
 ## Prywatność
 
-Bez trackerów i reklamowych cookies. Baner daje wybór: zaakceptowanie mapy lub „Tylko niezbędne”. Dopiero zgoda ustawia adres iframe OpenStreetMap. Wybór zapisuje się pod kluczem `benny-privacy-v1` w localStorage i można go zmienić w stopce. Cofnięcie zgody odłącza mapę, ale nie cofa wcześniejszych połączeń. Bez pamięci wybór działa do odświeżenia. Mapa przedstawia miasto, nie dokładny adres siedziby.
+Bez trackerów i reklamowych cookies. Baner daje wybór: zaakceptowanie mapy lub „Tylko niezbędne”. Dopiero zgoda ustawia adres iframe OpenStreetMap. Wybór zapisuje się pod kluczem `benny-privacy-v1` w localStorage i można go zmienić w stopce. Cofnięcie zgody odłącza mapę, ale nie cofa wcześniejszych połączeń. Bez pamięci wybór działa do odświeżenia. Mapa przedstawia województwo, bez oznaczenia adresu siedziby.
 
 Pasek partnerów ma przycisk zatrzymania, zatrzymuje się po najechaniu i respektuje systemowe ograniczenie ruchu. Panel admina nie jest częścią projektu.
 
@@ -73,3 +73,8 @@ Po jednorazowym wgraniu nowej paczki do OVH katalog `test/zdjecia/` zawiera wszy
 ## Kategorie oferty
 
 `serviceCategories` w `src/data/services.ts` grupuje pięć usług w reklamę bezpośrednią (główna specjalizacja), mobilną i cyfrową. Nagłówki sprzedażowe są w polu `headline`. Ścieżki zdjęć, podpisy galerii i identyfikatory formularza pozostają bez zmian. Sekcja „Kampanie łączone” przedstawia przykładowy plan otwarcia restauracji; nie opisuje zrealizowanej kampanii. Obszar działania obejmuje Szczecin, Koszalin, Stargard i pozostałe miejscowości zachodniopomorskiego z dostępnością do indywidualnego potwierdzenia.
+
+
+## Mapa regionu
+
+`src/pages/mapa.astro` jest lokalnym widokiem Leaflet ładowanym w iframe dopiero po zgodzie. Podkład pochodzi z `tile.openstreetmap.org`; geometria uproszczonego obrysu zachodniopomorskiego jest lokalna w `src/data/zachodniopomorskie.json`. Źródło danych: [polska-geojson](https://github.com/ppatrzyk/polska-geojson), dane PRG/GUGiK, licencja MIT (Copyright 2019 Piotr Patrzyk). Licencje danych i Leaflet są w `public/licencje/`. Czerwony obrys pozostaje widoczny bez podkładu, a mapa pokazuje komunikat awarii kafelków. Nie jest to mapa do pomiarów ani granic ewidencyjnych. Do połączeń sieciowych potrzebne jest dopuszczenie `tile.openstreetmap.org`; mapa nie korzysta z zewnętrznego CDN JavaScript. Polityka CSP dla ramki musi uwzględniać lokalny adres `/mapa/` (lub `/test/mapa/`) oraz obrazy z serwera kafelków wewnątrz tej ramki.

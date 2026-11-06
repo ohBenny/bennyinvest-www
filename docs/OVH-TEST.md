@@ -20,6 +20,9 @@ www/test/index.html
 www/test/favicon.svg
 www/test/_astro/...
 www/test/api/quote.php
+www/test/mapa/index.html
+www/test/licencje/...
+www/test/zdjecia/...
 ```
 
 Nie przesyłaj całego repozytorium, `.git`, `node_modules`, plików testowych ani dodatkowego nadrzędnego folderu `dist-test`. Nie zmieniaj głównego katalogu domeny w konfiguracji multisite tylko po to, by przetestować podkatalog. Korzystaj z dostępu SFTP/FTP zapewnionego przez OVH; dane logowania wprowadzaj w swoim kliencie, nie w kodzie lub czacie. Sprawdź HTTPS dla domeny.
@@ -46,3 +49,5 @@ Kopia `/test/` jest publicznie dostępna mimo noindex; dla prywatnych materiał�
 ## Wersja docelowa w głównym katalogu
 
 Dla `/` wykonaj zwykłe `npm run build` i użyj zawartości `dist/`. Nie kopiuj wersji zbudowanej dla `/test/` do głównego katalogu, bo jej ścieżki będą wskazywać podkatalog.
+
+Nowa wersja mapy korzysta z lokalnego katalogu `mapa/` oraz bibliotek w `_astro/`. Wgraj całą zawartość paczki. Mapa wyświetla czerwony obrys zachodniopomorskiego; podkład wymaga dostępu przeglądarki do `tile.openstreetmap.org`.

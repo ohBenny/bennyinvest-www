@@ -21,7 +21,7 @@ export const services = base.map((service, index) => ({ ...service, ...details[i
 
 
 export const serviceCategories = [
-  { id: 'bezposrednia', title: 'Reklama bezpośrednia', featured: true, intro: 'Nasza główna specjalizacja. Łączymy kolportaż materiałów reklamowych z kampaniami terenowymi, by przybliżyć Twoją ofertę lokalnym odbiorcom.', serviceIds: ['kolportaz', 'promocje'] },
+  { id: 'bezposrednia', title: 'Reklama bezpośrednia', featured: true, intro: 'Łączymy kolportaż materiałów reklamowych z kampaniami terenowymi, by przybliżyć Twoją ofertę lokalnym odbiorcom.', serviceIds: ['kolportaz', 'promocje'] },
   { id: 'mobilna', title: 'Reklama mobilna', featured: false, intro: 'Reklama w taxi, ekrany i reklama na pojazdach. Dostępność formatów, miejsce i czas ekspozycji ustalamy indywidualnie.', serviceIds: ['taxi'] },
   { id: 'cyfrowa', title: 'Reklama cyfrowa', featured: false, intro: 'Meta Ads, Google Ads, projektowanie stron WWW i obsługa techniczna. Spójna obecność marki od pierwszej reklamy po kontakt na stronie.', serviceIds: ['digital', 'www'] },
 ];
