@@ -60,10 +60,7 @@ h3 { font-weight: 400; }
 .about-copy p { font-size: 14px; line-height: 1.9; color: #c2c2be; }
 .about .text-link { margin-top: 36px; }
 .contact-top { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; }
-.email { display: flex; justify-content: space-between; align-items: center; gap: 20px; font-size: clamp(26px, 5.7vw, 81px); line-height: 1.2; letter-spacing: -.065em; padding-block: 55px 35px; border-bottom: 1px solid #bcbcb8; }
-.email .arrow-icon { width: 58px; height: 58px; }
-.email:hover { text-decoration: none; color: #646461; }
-.contact-details { display: grid; grid-template-columns: 1fr 1fr .7fr; gap: 35px; padding-top: 30px; font-size: 12px; line-height: 1.9; color: #5e5e5a; }
+.contact-details { display: grid; grid-template-columns: 1fr 1fr .7fr; gap: 35px; padding-top: 30px; margin-top: 42px; border-top: 1px solid #bcbcb8; font-size: 12px; line-height: 1.9; color: #5e5e5a; }
 .contact-details h3 { font-size: 12px; color: #191919; margin-bottom: 4px; }
 .location { padding-bottom: 80px; }
 .location-heading { display: flex; align-items: end; justify-content: space-between; gap: 25px; padding-bottom: 22px; }
@@ -109,8 +106,6 @@ footer a span { margin-left: 20px; }
   .service-title h3 { font-size: 25px; }
   .service-title .eyebrow { font-size: 8px; margin-bottom: 12px; }
   .about-copy { grid-template-columns: 1fr; gap: 20px; margin-top: 30px; }
-  .email { padding-block: 38px 25px; font-size: clamp(23px, 6.3vw, 40px); gap: 12px; }
-  .email .arrow-icon { width: 26px; height: 26px; }
   .contact-details { grid-template-columns: 1fr 1fr; gap: 24px; }
   .contact-details>p { grid-column: 1 / -1; }
   .location-heading { align-items: start; flex-direction: column; gap: 12px; }
@@ -219,7 +214,6 @@ body.quote-open { overflow: hidden; }
 /* Aktualny układ usług bez numeracji. */
 .hero-copy h1 { font-size: clamp(68px, 7.1vw, 103px); line-height: 1; }
 .service-row { grid-template-columns: 1.1fr 1fr 44px; }
-.contact-phone { display: inline-block; font-size: 20px; letter-spacing: -.025em; color: #191919; margin-top: 14px; }
 @media (max-width: 650px) {
   .hero-copy h1 { font-size: clamp(46px, 10.7vw, 70px); }
   .service-row { grid-template-columns: minmax(0, 1fr) 44px; }
@@ -261,3 +255,5 @@ body.quote-open { overflow: hidden; }
   .service-gallery { grid-template-columns: 1fr; gap: 25px; }
   .service-photo-placeholder { aspect-ratio: 16 / 9; }
 }
+
+.contact-links { display: flex; align-items: flex-start; flex-direction: column; gap: 3px; margin-top: 16px; color: #191919; font-size: 18px; letter-spacing: -.025em; }
