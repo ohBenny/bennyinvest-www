@@ -311,3 +311,14 @@ body.quote-open { overflow: hidden; }
 .service-item .service-title h4 { max-width: 760px; }
 /* Odcienie szarości podkładu ustawiane są wewnątrz mapy; obrys pozostaje czerwony. */
 .map-frame iframe { filter: none; }
+
+/* Prostsze podpisy i układ sekcji z founderem w lewej kolumnie. */
+.section-heading, .contact-top { grid-template-columns: 1fr; gap: 0; }
+.section-heading>div { max-width: 840px; }
+.about-grid { align-items: start; }
+.about-grid>.team-grid { display: block; width: min(220px, 100%); margin-top: 8px; }
+.service-title h4 { color: #858582; }
+@media (max-width: 650px) {
+  .about-grid>.team-grid { order: 2; margin-top: 12px; }
+  .about-grid>div:last-child { order: 1; }
+}

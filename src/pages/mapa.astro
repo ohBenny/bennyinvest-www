@@ -8,7 +8,7 @@ import { sitePath } from '../utils/site';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
-    <meta name="referrer" content="no-referrer" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <title>Obszar działania — Benny Invest</title>
     <style is:global>
       html, body, #region-map { width: 100%; height: 100%; margin: 0; }
@@ -41,9 +41,10 @@ import { sitePath } from '../utils/site';
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>',
       });
       const notice = document.querySelector<HTMLElement>('#map-tile-notice')!;
-      let loaded = false;
-      tiles.on('tileload', () => { loaded = true; notice.hidden = true; });
-      tiles.on('tileerror', () => { if (!loaded) notice.hidden = false; });
+      tiles.on('tileerror', () => {
+        if (map.hasLayer(tiles)) map.removeLayer(tiles);
+        notice.hidden = false;
+      });
       tiles.addTo(map);
       new ResizeObserver(() => { map.invalidateSize(); map.fitBounds(boundary.getBounds(), { padding: [20, 20] }); }).observe(document.querySelector('#region-map')!);
     </script>

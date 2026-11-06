@@ -43,7 +43,7 @@ Test wymaga PHP CLI w PATH lub zmiennej `PHP_BIN` wskazującej jego plik wykonyw
 
 - `src/pages/index.astro`: usługi, hasło i dane spółki podane przez właściciela. Nie dodano niepodanego numeru budynku ani danych sądu rejestrowego lub kapitału.
 - `src/styles/global.css`: monochromatyczna oprawa, typografia i układ.
-- `src/data/team.ts`: founder i dwie karty pracowników. Gotowe pliki do podmiany są w `public/zdjecia/zespol/`: `founder.jpg`, `pracownik-1.jpg`, `pracownik-2.jpg`. Ścieżki są już podłączone. Imię i opis `alt` możesz uzupełnić w pliku danych. Kolejna osoba to kolejny obiekt w tablicy. Zdjęcia do 220 px szerokości, proporcje 4:5, w szarości.
+- `src/data/team.ts`: obecnie tylko karta foundera po lewej stronie sekcji O nas. Pliki zdjęć pracowników są zachowane na później, ale karty nie są wyświetlane. Gotowe pliki do podmiany są w `public/zdjecia/zespol/`: `founder.jpg`, `pracownik-1.jpg`, `pracownik-2.jpg`. Ścieżki są już podłączone. Imię i opis `alt` możesz uzupełnić w pliku danych. Kolejna osoba to kolejny obiekt w tablicy. Zdjęcia do 220 px szerokości, proporcje 4:5, w szarości.
 - `src/data/partners.ts`: nazwy i logotypy. Aktualne wpisy to podpisane miejsca na logo, bez deklarowania rzeczywistych współprac. Dla potwierdzonego partnera ustaw nazwę, ścieżkę do pliku z `public/zdjecia/partnerzy/` i `placeholder: false`.
 
 Oferta obejmuje kolportaż, reklamę w taxi, Meta i Google Ads, akcje promocyjne oraz tworzenie i obsługę stron WWW. Opisy są propozycją redakcyjną. Inspiracje wizualne: szwajcarskie projektowanie graficzne (Josef Müller-Brockmann), geometryczny minimalizm (Sol LeWitt). Grafika SVG jest autorska; nie wykorzystuje reprodukcji prac artystów ani zdjęć realizacji.
@@ -78,3 +78,8 @@ Po jednorazowym wgraniu nowej paczki do OVH katalog `test/zdjecia/` zawiera wszy
 ## Mapa regionu
 
 `src/pages/mapa.astro` jest lokalnym widokiem Leaflet ładowanym w iframe dopiero po zgodzie. Podkład pochodzi z `tile.openstreetmap.org`; geometria uproszczonego obrysu zachodniopomorskiego jest lokalna w `src/data/zachodniopomorskie.json`. Źródło danych: [polska-geojson](https://github.com/ppatrzyk/polska-geojson), dane PRG/GUGiK, licencja MIT (Copyright 2019 Piotr Patrzyk). Licencje danych i Leaflet są w `public/licencje/`. Czerwony obrys pozostaje widoczny bez podkładu, a mapa pokazuje komunikat awarii kafelków. Nie jest to mapa do pomiarów ani granic ewidencyjnych. Do połączeń sieciowych potrzebne jest dopuszczenie `tile.openstreetmap.org`; mapa nie korzysta z zewnętrznego CDN JavaScript. Polityka CSP dla ramki musi uwzględniać lokalny adres `/mapa/` (lub `/test/mapa/`) oraz obrazy z serwera kafelków wewnątrz tej ramki.
+
+
+### Polityka kafelków OSM
+
+Strona mapy i iframe używają `strict-origin-when-cross-origin`. Nie ustawiaj dla mapy `no-referrer` — serwer kafelków OSM wymaga identyfikującego Referer w żądaniach przeglądarki. Przy błędzie kafelków warstwa podkładu jest usuwana, a lokalny czerwony obrys pozostaje dostępny. Zachowanie i nagłówki przetestowano lokalnie; rzeczywiste odblokowanie domeny przez dostawcę należy potwierdzić po wgraniu na OVH.
