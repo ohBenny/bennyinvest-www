@@ -1,0 +1,20 @@
+---
+import { sitePath } from '../utils/site';
+interface Props { src: string; alt: string; kind: 'portrait' | 'gallery' | 'logo'; width: number; height: number; }
+const { src, alt, kind, width, height } = Astro.props;
+---
+<div class:list={['replaceable-image', `replaceable-image-${kind}`]}>
+  <img src={sitePath(src)} alt={alt} width={width} height={height} loading="lazy" data-replaceable-image />
+  <span class="image-fallback" hidden><span aria-hidden="true">+</span><span>{kind === 'logo' ? 'Miejsce na logo' : 'Miejsce na zdjęcie'}</span></span>
+</div>
+<script>
+  document.querySelectorAll<HTMLImageElement>('[data-replaceable-image]').forEach(image => {
+    const showFallback = () => {
+      image.hidden = true;
+      const fallback = image.parentElement?.querySelector<HTMLElement>('.image-fallback');
+      if (fallback) fallback.hidden = false;
+    };
+    image.addEventListener('error', showFallback);
+    if (image.complete && image.naturalWidth === 0) showFallback();
+  });
+</script>

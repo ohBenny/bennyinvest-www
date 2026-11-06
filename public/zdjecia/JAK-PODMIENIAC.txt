@@ -1,0 +1,28 @@
+ZDJĘCIA BENNY INVEST — PODMIANA NA OVH
+
+Po jednorazowym wgraniu całej nowej paczki do /test/:
+- Zespół: zdjecia/zespol/founder.jpg, pracownik-1.jpg, pracownik-2.jpg
+- Usługi: zdjecia/uslugi/kolportaz-1.jpg do kolportaz-3.jpg
+  Analogicznie: taxi-1.jpg, digital-1.jpg, www-1.jpg, promocje-1.jpg
+  Każda usługa ma trzy pliki z numerami 1, 2, 3.
+- Logotypy: zdjecia/partnerzy/partner-1.png do partner-4.png
+
+Aby podmienić obraz, nadpisz właściwy plik własnym zdjęciem, zachowując
+identyczną nazwę i format. JPG musi być faktycznie plikiem JPEG, PNG plikiem PNG.
+Samo przemianowanie .heic, .webp lub .png na .jpg nie konwertuje obrazu.
+
+Zdjęcie może być większe od ramki i mieć inne proporcje. Strona dopasowuje
+je automatycznie, kadrując od środka, bez rozciągania. Zespół: proporcje 4:5,
+ramka do 220 px szerokości. Galerie: 4:3 na komputerze, 16:9 na telefonie.
+Logotypy mieszczą się w ramce 160 x 60 px bez przycinania.
+Zdjęcia i logotypy wyświetlane są w szarościach.
+
+Zalecenia: portret ok. 880 x 1100 px, zdjęcie galerii ok. 1600 x 1200 px.
+Celuj w 200–500 KB na zdjęcie. Dopasowanie ramki nie zmniejsza ciężaru pliku.
+Po podmianie odśwież stronę Ctrl+F5. Jeśli hosting ma CDN/cache, wyczyść także
+jego pamięć. Nie zmieniaj nazwy pliku — inaczej trzeba zaktualizować projekt.
+
+Podmieniaj również kopie w projekcie (public/zdjecia/), aby kolejna kompilacja
+nie przywróciła starych zdjęć. Nazwy osób i partnerów oraz opisy alternatywne
+edytuje się w src/data/team.ts, partners.ts i services.ts, potem kompiluje stronę.
+Nie przesyłaj zdjęć, do których publikacji nie masz praw.

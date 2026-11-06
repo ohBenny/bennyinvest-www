@@ -13,10 +13,8 @@ const details = [
   { id: 'www', quoteServices: ['Strony WWW i obsługa'], description: 'Strona, która jasno prezentuje Twoją ofertę. Pomagamy przejść od struktury i projektu do uruchomienia oraz późniejszych aktualizacji.', scope: ['Struktura i projekt strony', 'Wdrożenie i uruchomienie', 'Aktualizacje treści i bieżące wsparcie'], captions: ['Projekt strony', 'Widok mobilny', 'Detale i treści'] },
   { id: 'promocje', quoteServices: ['Akcje promocyjne'], description: 'Bezpośrednie spotkanie marki z odbiorcą. Dobieramy formę akcji do miejsca, produktu i grupy, do której chcesz dotrzeć.', scope: ['Pomysł i plan akcji', 'Organizacja działań w terenie', 'Koordynacja promocji marki'], captions: ['Przygotowania', 'Akcja w terenie', 'Kontakt z odbiorcami'] },
 ];
-// Dodaj zdjęcia do public/services/ i wpisz ich ścieżki w kolejności podpisów.
-// Np. kolportaz: ['/services/ulotki.jpg', '/services/dystrybucja.jpg', ''].
-const photoFiles: Record<string, string[]> = {
-  kolportaz: ['', '', ''], taxi: ['', '', ''], digital: ['', '', ''],
-  www: ['', '', ''], promocje: ['', '', ''],
-};
+// Podmień pliki w public/zdjecia/uslugi/ bez edycji kodu.
+const photoFiles: Record<string, string[]> = Object.fromEntries(
+  details.map(service => [service.id, [1, 2, 3].map(number => `/zdjecia/uslugi/${service.id}-${number}.jpg`)])
+);
 export const services = base.map((service, index) => ({ ...service, ...details[index], photos: details[index].captions.map((caption, photoIndex) => ({ src: photoFiles[details[index].id]?.[photoIndex] ?? '', alt: caption, caption })) }));

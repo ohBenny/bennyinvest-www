@@ -1,11 +1,11 @@
 ---
-import { sitePath } from '../utils/site';
+import ReplaceableImage from './ReplaceableImage.astro';
 import { partners } from '../data/partners';
 ---
 <section class="partners shell" aria-labelledby="partners-heading">
   <div class="partners-heading"><div><p class="eyebrow">WSPÓŁPRACA</p><h2 id="partners-heading">Dobre relacje zostają.</h2><p class="partners-note">Miejsca na logotypy naszych partnerów.</p></div><button id="partners-pause" type="button" aria-pressed="false">Zatrzymaj ruch</button></div>
   <div class="partners-window"><div class="partners-track">
-    {[0, 1].map(copy => <ul class="partners-group" aria-label={copy === 0 ? 'Partnerzy — miejsca na logotypy' : undefined} aria-hidden={copy === 1 ? 'true' : undefined}>{partners.map(partner => <li class="partner-item">{partner.logo ? <img src={sitePath(partner.logo)} alt={partner.name} loading="lazy" width="160" height="60" /> : <span class="partner-name">{partner.name}</span>}{partner.placeholder && <span class="partner-placeholder">MIEJSCE NA LOGO</span>}</li>)}</ul>)}
+    {[0, 1].map(copy => <ul class="partners-group" aria-label={copy === 0 ? 'Partnerzy — miejsca na logotypy' : undefined} aria-hidden={copy === 1 ? 'true' : undefined}>{partners.map(partner => <li class="partner-item">{partner.logo ? <ReplaceableImage src={partner.logo} alt={partner.name} kind="logo" width={160} height={60} /> : <span class="partner-name">{partner.name}</span>}{partner.placeholder && !partner.logo && <span class="partner-placeholder">MIEJSCE NA LOGO</span>}</li>)}</ul>)}
   </div></div>
 </section>
 <script>
