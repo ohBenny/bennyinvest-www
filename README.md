@@ -68,3 +68,8 @@ Opisy, zakresy i podpisy galerii są w `src/data/services.ts`. Zdjęcia są pod�
 ## Podmiana zdjęć bez kompilacji
 
 Po jednorazowym wgraniu nowej paczki do OVH katalog `test/zdjecia/` zawiera wszystkie podłączone pliki. Wystarczy nadpisać właściwy JPG/PNG pod identyczną nazwą. Nie trzeba wtedy edytować HTML ani kompilować strony. Pełna lista nazw i wskazówki: `public/zdjecia/JAK-PODMIENIAC.txt` (także w paczce). Zdjęcia są kadrowane od środka przez `object-fit: cover`, logotypy mieszczą się bez przycinania przez `contain`. Ramki zachowują dotychczasowe proporcje; na telefonie galerie mają 16:9. Podmiana pliku nie zmniejsza jego rozmiaru w bajtach — zalecane są skompresowane fotografie 200–500 KB. Po zmianie odśwież stronę Ctrl+F5 i ewentualnie wyczyść cache hostingu. Zachowaj kopie swoich zdjęć w źródłach przed kolejnym pełnym wdrożeniem.
+
+
+## Kategorie oferty
+
+`serviceCategories` w `src/data/services.ts` grupuje pięć usług w reklamę bezpośrednią (główna specjalizacja), mobilną i cyfrową. Nagłówki sprzedażowe są w polu `headline`. Ścieżki zdjęć, podpisy galerii i identyfikatory formularza pozostają bez zmian. Sekcja „Kampanie łączone” przedstawia przykładowy plan otwarcia restauracji; nie opisuje zrealizowanej kampanii. Obszar działania obejmuje Szczecin, Koszalin, Stargard i pozostałe miejscowości zachodniopomorskiego z dostępnością do indywidualnego potwierdzenia.
