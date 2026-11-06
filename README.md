@@ -53,3 +53,8 @@ Oferta obejmuje kolportaż, reklamę w taxi, Meta i Google Ads, akcje promocyjne
 Bez trackerów i reklamowych cookies. Baner daje wybór: zaakceptowanie mapy lub „Tylko niezbędne”. Dopiero zgoda ustawia adres iframe OpenStreetMap. Wybór zapisuje się pod kluczem `benny-privacy-v1` w localStorage i można go zmienić w stopce. Cofnięcie zgody odłącza mapę, ale nie cofa wcześniejszych połączeń. Bez pamięci wybór działa do odświeżenia. Mapa przedstawia miasto, nie dokładny adres siedziby.
 
 Pasek partnerów ma przycisk zatrzymania, zatrzymuje się po najechaniu i respektuje systemowe ograniczenie ruchu. Panel admina nie jest częścią projektu.
+
+
+## Rozwijane usługi i zdjęcia
+
+Opisy, zakresy i podpisy galerii są w `src/data/services.ts`. W `photoFiles` wpisz ścieżki zdjęć z `public/services/` (do trzech na usługę). Puste ścieżki wyświetlają podpisane miejsca na zdjęcia. Podpisy i opisy alternatywne dopasuj do dodawanych materiałów. Galerie rozwijają się natywnie także bez JavaScript. Przycisk „Wyceń tę usługę” otwiera formularz i zaznacza właściwe usługi (dla digital: Meta Ads i Google Ads). Dane kontaktowe wpisane w formularzu są zachowywane podczas przełączania kategorii.

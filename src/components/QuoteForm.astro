@@ -43,6 +43,13 @@ import Arrow from './Arrow.astro';
   document.querySelectorAll<HTMLButtonElement>('[data-open-quote]').forEach(button => {
     button.addEventListener('click', () => {
       opener = button;
+      form.hidden = false;
+      result.hidden = true;
+      serviceError.hidden = true;
+      if (button.dataset.quoteServices) {
+        const selected = button.dataset.quoteServices.split('|');
+        form.querySelectorAll<HTMLInputElement>('[name="service"]').forEach(input => { input.checked = selected.includes(input.value); });
+      }
       dialog.showModal();
       document.body.classList.add('quote-open');
     });
