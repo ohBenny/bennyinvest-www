@@ -58,3 +58,8 @@ Pasek partnerów ma przycisk zatrzymania, zatrzymuje się po najechaniu i respek
 ## Rozwijane usługi i zdjęcia
 
 Opisy, zakresy i podpisy galerii są w `src/data/services.ts`. W `photoFiles` wpisz ścieżki zdjęć z `public/services/` (do trzech na usługę). Puste ścieżki wyświetlają podpisane miejsca na zdjęcia. Podpisy i opisy alternatywne dopasuj do dodawanych materiałów. Galerie rozwijają się natywnie także bez JavaScript. Przycisk „Wyceń tę usługę” otwiera formularz i zaznacza właściwe usługi (dla digital: Meta Ads i Google Ads). Dane kontaktowe wpisane w formularzu są zachowywane podczas przełączania kategorii.
+
+
+## Test w podkatalogu OVH
+
+`npm run build:test` tworzy `dist-test/` dla adresu `/test/` i dodaje noindex. Prześlij jego zawartość do folderu test na hostingu, bez zmiany głównej strony. Pełna instrukcja i diagnostyka: [docs/OVH-TEST.md](docs/OVH-TEST.md). Zwykłe `npm run build` pozostaje kompilacją dla głównego adresu `/`. Limit backendu wynosi 3 poprawne próby przekazania wiadomości na 10 minut z jednego IP; czwarta zwraca HTTP 429.

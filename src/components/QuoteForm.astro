@@ -35,6 +35,7 @@ import Arrow from './Arrow.astro';
   </div>
 </dialog>
 <script>
+  import { sitePath } from '../utils/site';
   const dialog = document.querySelector<HTMLDialogElement>('#quote-dialog')!;
   const form = document.querySelector<HTMLFormElement>('#quote-form')!;
   const result = document.querySelector<HTMLElement>('#quote-result')!;
@@ -89,7 +90,7 @@ import Arrow from './Arrow.astro';
     const heading = document.querySelector<HTMLElement>('#quote-result-heading')!;
     const fallback = document.querySelector<HTMLElement>('#quote-fallback')!;
     try {
-      const response = await fetch('/api/quote.php', {
+      const response = await fetch(sitePath('api/quote.php'), {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         signal: AbortSignal.timeout(20000),
         body: JSON.stringify({ services, name: value('name'), email: value('email'), area: value('area'), timing: value('timing'), budget: value('budget'), brief: value('brief'), website: value('website') }),

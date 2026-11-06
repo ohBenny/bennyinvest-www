@@ -1,4 +1,5 @@
 ---
+import { sitePath } from '../utils/site';
 import Arrow from './Arrow.astro';
 import type { services } from '../data/services';
 interface Props { service: (typeof services)[number] }
@@ -13,7 +14,7 @@ const { service } = Astro.props;
   </summary>
   <div class="service-expanded">
     <div class="service-scope"><div><h4>Pomysł przekładamy na działanie.</h4><p>{service.description}</p></div><ul>{service.scope.map(point => <li>{point}</li>)}</ul></div>
-    <div class="service-gallery" role="group" aria-label={`Galeria: ${service.title}`}>{service.photos.map(photo => <figure>{photo.src ? <img src={photo.src} alt={photo.alt} width="600" height="450" loading="lazy" /> : <div class="service-photo-placeholder"><span aria-hidden="true">+</span><span>Miejsce na zdjęcie realizacji</span></div>}<figcaption>{photo.caption}</figcaption></figure>)}</div>
+    <div class="service-gallery" role="group" aria-label={`Galeria: ${service.title}`}>{service.photos.map(photo => <figure>{photo.src ? <img src={sitePath(photo.src)} alt={photo.alt} width="600" height="450" loading="lazy" /> : <div class="service-photo-placeholder"><span aria-hidden="true">+</span><span>Miejsce na zdjęcie realizacji</span></div>}<figcaption>{photo.caption}</figcaption></figure>)}</div>
     <button class="quote-trigger" type="button" data-open-quote data-quote-services={service.quoteServices.join('|')} aria-haspopup="dialog" aria-controls="quote-dialog">Wyceń tę usługę <Arrow /></button>
   </div>
 </details>
