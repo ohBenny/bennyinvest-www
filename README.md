@@ -43,8 +43,8 @@ Test wymaga PHP CLI w PATH lub zmiennej `PHP_BIN` wskazującej jego plik wykonyw
 
 - `src/pages/index.astro`: usługi, hasło i dane spółki podane przez właściciela. Nie dodano niepodanego numeru budynku ani danych sądu rejestrowego lub kapitału.
 - `src/styles/global.css`: monochromatyczna oprawa, typografia i układ.
-- `src/data/team.ts`: obecnie tylko karta foundera po lewej stronie sekcji O nas. Pliki zdjęć pracowników są zachowane na później, ale karty nie są wyświetlane. Gotowe pliki do podmiany są w `public/zdjecia/zespol/`: `founder.jpg`, `pracownik-1.jpg`, `pracownik-2.jpg`. Ścieżki są już podłączone. Imię i opis `alt` możesz uzupełnić w pliku danych. Kolejna osoba to kolejny obiekt w tablicy. Zdjęcia do 220 px szerokości, proporcje 4:5, w szarości.
-- `src/data/partners.ts`: nazwy i logotypy. Aktualne wpisy to podpisane miejsca na logo, bez deklarowania rzeczywistych współprac. Dla potwierdzonego partnera ustaw nazwę, ścieżkę do pliku z `public/zdjecia/partnerzy/` i `placeholder: false`.
+- `src/data/team.ts`: obecnie tylko karta foundera po lewej stronie sekcji O nas. Pliki zdjęć pracowników są zachowane na później, ale karty nie są wyświetlane. Gotowe pliki do podmiany są w `public/zdjecia/zespol/`: `founder.jpg`, `pracownik-1.jpg`, `pracownik-2.jpg`. Ścieżki są już podłączone. Imię i opis `alt` możesz uzupełnić w pliku danych. Kolejna osoba to kolejny obiekt w tablicy. Zdjęcia do 260 px szerokości, proporcje 4:5, w szarości.
+- `public/zdjecia/partnerzy/partnerzy.json`: lista nazw i plików logo, edytowalna również bezpośrednio na OVH. Aktualne obrazy to podpisane miejsca na logo. `src/data/partners.ts` tworzy z tej listy zapasową wersję HTML.
 
 Oferta obejmuje kolportaż, reklamę w taxi, Meta i Google Ads, akcje promocyjne oraz tworzenie i obsługę stron WWW. Opisy są propozycją redakcyjną. Inspiracje wizualne: szwajcarskie projektowanie graficzne (Josef Müller-Brockmann), geometryczny minimalizm (Sol LeWitt). Grafika SVG jest autorska; nie wykorzystuje reprodukcji prac artystów ani zdjęć realizacji.
 
@@ -83,3 +83,8 @@ Po jednorazowym wgraniu nowej paczki do OVH katalog `test/zdjecia/` zawiera wszy
 ### Polityka kafelków OSM
 
 Strona mapy i iframe używają `strict-origin-when-cross-origin`. Nie ustawiaj dla mapy `no-referrer` — serwer kafelków OSM wymaga identyfikującego Referer w żądaniach przeglądarki. Przy błędzie kafelków warstwa podkładu jest usuwana, a lokalny czerwony obrys pozostaje dostępny. Zachowanie i nagłówki przetestowano lokalnie; rzeczywiste odblokowanie domeny przez dostawcę należy potwierdzić po wgraniu na OVH.
+
+
+## Lista partnerów bez kompilacji
+
+Listą logotypów zarządza `public/zdjecia/partnerzy/partnerzy.json` (na OVH: `test/zdjecia/partnerzy/partnerzy.json`). Każdy wpis ma `name` i `logo` — samą nazwę pliku PNG/JPG/JPEG/WEBP z tego folderu. Można dodawać, usuwać i zmieniać kolejność wpisów bez przebudowy strony. Pusta lista ukrywa sekcję; błędny lub niedostępny JSON pozostawia listę zapasową z HTML. Pasek powtarza sekwencję bez pustej przerwy także przy jednym logo i respektuje ograniczenie ruchu. Zdjęcie foundera ma obecnie maksymalnie 260 px szerokości. Favicon jest dostarczany jako PNG, ICO i ikona Apple; po zmianie przeglądarka może wymagać ponownego otwarcia karty.

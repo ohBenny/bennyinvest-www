@@ -13,7 +13,7 @@ Samo przemianowanie .heic, .webp lub .png na .jpg nie konwertuje obrazu.
 
 Zdjęcie może być większe od ramki i mieć inne proporcje. Strona dopasowuje
 je automatycznie, kadrując od środka, bez rozciągania. Zespół: proporcje 4:5,
-ramka do 220 px szerokości. Galerie: 4:3 na komputerze, 16:9 na telefonie.
+ramka do 260 px szerokości. Galerie: 4:3 na komputerze, 16:9 na telefonie.
 Logotypy mieszczą się w ramce 160 x 60 px bez przycinania.
 Zdjęcia i logotypy wyświetlane są w szarościach.
 
@@ -23,6 +23,19 @@ Po podmianie odśwież stronę Ctrl+F5. Jeśli hosting ma CDN/cache, wyczyść t
 jego pamięć. Nie zmieniaj nazwy pliku — inaczej trzeba zaktualizować projekt.
 
 Podmieniaj również kopie w projekcie (public/zdjecia/), aby kolejna kompilacja
-nie przywróciła starych zdjęć. Nazwy osób i partnerów oraz opisy alternatywne
-edytuje się w src/data/team.ts, partners.ts i services.ts, potem kompiluje stronę.
+nie przywróciła starych zdjęć. Nazwy osób i opisy realizacji edytuje się w src/data/team.ts i services.ts,
+potem kompiluje stronę. Partnerów można zmieniać bez kompilacji — patrz niżej.
 Nie przesyłaj zdjęć, do których publikacji nie masz praw.
+
+DODAWANIE I USUWANIE PARTNERÓW BEZ KOMPILACJI
+Edytuj zdjecia/partnerzy/partnerzy.json (zwykły plik tekstowy JSON):
+[
+  { "name": "Nazwa firmy", "logo": "partner-1.png" },
+  { "name": "Druga firma", "logo": "nowe-logo.png" }
+]
+Plik logo wgraj do tego samego folderu partnerzy. Dodaj wpis, by dodać logo;
+usuń wpis, by je usunąć z paska. Zachowaj poprawne cudzysłowy i przecinki.
+Obsługiwane: PNG, JPG, JPEG, WEBP; nazwy bez spacji i podfolderów.
+Kolejność wpisów to kolejność przewijania. Po ostatnim logo wraca pierwsze.
+Pusta lista [] ukrywa całą sekcję partnerów. Systemowe ograniczenie ruchu
+zatrzymuje animację; pozostałym użytkownikom służy przycisk zatrzymania.

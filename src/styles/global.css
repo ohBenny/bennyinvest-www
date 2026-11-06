@@ -322,3 +322,16 @@ body.quote-open { overflow: hidden; }
   .about-grid>.team-grid { order: 2; margin-top: 12px; }
   .about-grid>div:last-child { order: 1; }
 }
+
+.services>.section-heading, .combined>.section-heading { justify-items: center; text-align: center; }
+.services.section-space { padding-top: 90px; }
+.coverage>.section-heading { justify-items: end; text-align: right; }
+.coverage>.section-heading>div { width: min(840px, 100%); }
+.about-grid>.team-grid { width: min(260px, 100%); }
+.partners { --partner-card-width: 250px; }
+.partner-item { width: var(--partner-card-width); flex: none; }
+@media (max-width: 1000px) { .services.section-space { padding-top: 70px; } }
+@media (max-width: 650px) {
+  .services.section-space { padding-top: 50px; }
+  .partners { --partner-card-width: 200px; }
+}

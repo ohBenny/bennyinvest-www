@@ -9,15 +9,84 @@ import { partners } from '../data/partners';
   </div></div>
 </section>
 <script>
+  import { sitePath } from '../utils/site';
   const section = document.querySelector<HTMLElement>('.partners')!;
+  const windowElement = section.querySelector<HTMLElement>('.partners-window')!;
+  const track = section.querySelector<HTMLElement>('.partners-track')!;
   const button = document.querySelector<HTMLButtonElement>('#partners-pause')!;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  type Partner = { name: string; logo: string };
+  let items: Partner[] = Array.from(track.querySelectorAll<HTMLImageElement>('.partners-group:first-child img')).map(img => ({ name: img.alt, logo: img.getAttribute('src')! }));
+  const render = () => {
+    section.hidden = items.length === 0;
+    if (!items.length) return;
+    const cardWidth = Number.parseFloat(getComputedStyle(section).getPropertyValue('--partner-card-width'));
+    // Każda z dwóch identycznych sekwencji zapełnia całą szerokość okna.
+    const repeats = Math.max(1, Math.ceil(windowElement.clientWidth / (items.length * cardWidth)));
+    const groups = [0, 1].map(copy => {
+      const group = document.createElement('ul');
+      group.className = 'partners-group';
+      if (copy) group.setAttribute('aria-hidden', 'true');
+      else group.setAttribute('aria-label', 'Partnerzy');
+      for (let repeat = 0; repeat < repeats; repeat++) {
+        items.forEach(partner => {
+          const item = document.createElement('li');
+          item.className = 'partner-item';
+          if (repeat) item.setAttribute('aria-hidden', 'true');
+          const frame = document.createElement('div');
+          frame.className = 'replaceable-image replaceable-image-logo';
+          const image = document.createElement('img');
+          image.src = partner.logo;
+          image.alt = partner.name;
+          image.width = 160;
+          image.height = 60;
+          // Logotypy następnej sekwencji są gotowe przed wjazdem w okno.
+          image.loading = 'eager';
+          image.addEventListener('error', () => {
+            const label = document.createElement('span');
+            label.className = 'partner-name';
+            label.textContent = partner.name;
+            frame.replaceChildren(label);
+          }, { once: true });
+          frame.append(image);
+          item.append(frame);
+          group.append(item);
+        });
+      }
+      return group;
+    });
+    track.replaceChildren(...groups);
+    const sequenceWidth = items.length * cardWidth * repeats;
+    track.style.animationDuration = `${Math.max(12, sequenceWidth / 32)}s`;
+  };
   const setPaused = (paused: boolean) => {
-    section.classList.toggle('is-paused', paused);
-    button.setAttribute('aria-pressed', String(paused));
-    button.textContent = paused ? 'Wznów ruch' : 'Zatrzymaj ruch';
+    section.classList.toggle('is-paused', paused || reducedMotion.matches);
+    button.disabled = reducedMotion.matches;
+    button.setAttribute('aria-pressed', String(paused || reducedMotion.matches));
+    button.textContent = reducedMotion.matches ? 'Ruch wyłączony' : paused ? 'Wznów ruch' : 'Zatrzymaj ruch';
+    button.title = reducedMotion.matches ? 'Ustawienia ograniczonego ruchu w systemie' : '';
   };
   setPaused(reducedMotion.matches);
   reducedMotion.addEventListener('change', event => setPaused(event.matches));
   button.addEventListener('click', () => setPaused(button.getAttribute('aria-pressed') !== 'true'));
+  let lastWidth = 0;
+  new ResizeObserver(() => {
+    const width = windowElement.clientWidth;
+    if (width === lastWidth) return;
+    lastWidth = width;
+    render();
+  }).observe(windowElement);
+  render();
+  fetch(sitePath('zdjecia/partnerzy/partnerzy.json'), { cache: 'no-cache' })
+    .then(response => { if (!response.ok) throw new Error('Partner list unavailable'); return response.json(); })
+    .then((data: unknown) => {
+      if (!Array.isArray(data)) return;
+      const valid = data.slice(0, 100).filter((item): item is { name: string; logo: string } =>
+        item && typeof item.name === 'string' && typeof item.logo === 'string' &&
+        /^[A-Za-z0-9][A-Za-z0-9._-]*\.(png|jpe?g|webp)$/i.test(item.logo));
+      if (data.length && !valid.length) return; // Błędny plik nie usuwa wersji zapasowej.
+      items = valid.map(item => ({ name: item.name, logo: sitePath(`zdjecia/partnerzy/${item.logo}`) }));
+      render();
+    })
+    .catch(() => { /* W razie awarii działa lista zapisana w HTML. */ });
 </script>

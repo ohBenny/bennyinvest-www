@@ -18,8 +18,10 @@ import ServiceGallery from '../components/ServiceGallery.astro';
     <meta name="description" content="Benny Invest — reklama bezpośrednia, mobilna i cyfrowa. Kolportaż, kampanie terenowe, taxi, Meta i Google Ads oraz strony WWW. Szczecin, Koszalin, Stargard i zachodniopomorskie." />
     {import.meta.env.SITE_NOINDEX === '1' && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#f5f5f2" />
-    <link rel="icon" type="image/svg+xml" href={sitePath('favicon.svg')} />
-    <title>Benny Invest — Twoja marka. Nie do przeoczenia.</title>
+    <link rel="icon" type="image/x-icon" href={sitePath('favicon.ico')} />
+    <link rel="icon" type="image/png" sizes="32x32" href={sitePath('favicon-32.png')} />
+    <link rel="apple-touch-icon" sizes="180x180" href={sitePath('apple-touch-icon.png')} />
+    <title>Benny Invest Twoja marka. Nie do przeoczenia.</title>
   </head>
   <body id="top">
     <a class="skip" href="#main">Przejdź do treści</a>
