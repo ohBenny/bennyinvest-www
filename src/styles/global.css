@@ -278,7 +278,7 @@ body.quote-open { overflow: hidden; }
 .service-category-heading h3 { font-size: clamp(30px, 3.3vw, 46px); line-height: 1.12; letter-spacing: -.05em; font-weight: 400; }
 .service-category-heading>p { font-size: 14px; line-height: 1.85; color: #595956; max-width: 540px; }
 .specialty-label { display: inline-block; margin-bottom: 18px; border-bottom: 1px solid #191919; padding-bottom: 7px; font-size: 9px; letter-spacing: .12em; }
-.service-category-featured { border-left: 2px solid #191919; padding-left: 28px; }
+
 .service-title h4 { font-size: clamp(22px, 2.4vw, 34px); line-height: 1.15; letter-spacing: -.04em; max-width: 440px; font-weight: 400; }
 .service-scope h5 { font-size: 21px; font-weight: 400; letter-spacing: -.035em; margin-bottom: 15px; }
 
@@ -296,7 +296,6 @@ body.quote-open { overflow: hidden; }
 .coverage-note { font-size: 12px; line-height: 1.85; color: #595956; max-width: 780px; margin-top: 20px; }
 @media (max-width: 650px) {
   .service-category-heading, .combined-channels { grid-template-columns: 1fr; gap: 22px; }
-  .service-category-featured { padding-left: 15px; }
   .service-categories { gap: 48px; }
   .service-title h4 { font-size: 25px; }
   .combined-example { padding: 24px 20px; }
@@ -323,7 +322,8 @@ body.quote-open { overflow: hidden; }
   .about-grid>div:last-child { order: 1; }
 }
 
-.services>.section-heading, .combined>.section-heading { justify-items: center; text-align: center; }
+.services>.section-heading { justify-items: start; text-align: left; }
+.combined>.section-heading { justify-items: center; text-align: center; }
 .services.section-space { padding-top: 90px; }
 .coverage>.section-heading { justify-items: end; text-align: right; }
 .coverage>.section-heading>div { width: min(840px, 100%); }
