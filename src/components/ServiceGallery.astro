@@ -12,7 +12,7 @@ const { service } = Astro.props;
     <span class="sr-only">Rozwiń opis i galerię</span>
   </summary>
   <div class="service-expanded">
-    <div class="service-scope"><div><h5>Pomysł przekładamy na działanie.</h5><p>{service.description}</p></div><ul>{service.scope.map(point => <li>{point}</li>)}</ul></div>
+    <div class="service-scope"><div><h5>{service.detailHeading}</h5><p>{service.description}</p></div><ul>{service.scope.map(point => <li>{point}</li>)}</ul></div>
     <div class="service-gallery" role="group" aria-label={`Galeria: ${service.title}`}>{service.photos.map(photo => <figure>{photo.src ? <ReplaceableImage src={photo.src} alt={photo.alt} kind="gallery" width={600} height={450} /> : <div class="service-photo-placeholder"><span aria-hidden="true">+</span><span>Miejsce na zdjęcie realizacji</span></div>}<figcaption>{photo.caption}</figcaption></figure>)}</div>
     <button class="quote-trigger" type="button" data-open-quote data-quote-services={service.quoteServices.join('|')} aria-haspopup="dialog" aria-controls="quote-dialog">Wyceń tę usługę <Arrow /></button>
   </div>
