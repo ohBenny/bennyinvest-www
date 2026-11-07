@@ -396,3 +396,6 @@ body.quote-open { overflow: hidden; }
 
 .service-item .service-title { justify-self: end; text-align: right; min-width: 0; max-width: 100%; }
 .service-item .service-row { column-gap: 18px; }
+
+.contact-details .contact-area h3 { font-size: clamp(25px, 2.5vw, 34px); line-height: 1.12; letter-spacing: -.045em; margin-bottom: 18px; }
+.contact-area p { max-width: 340px; }

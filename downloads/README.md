@@ -11,4 +11,4 @@ Po jednorazowym wgraniu całej nowej paczki możesz podmieniać same pliki w `te
 
 ## Aktualizacja samych zmienionych plików
 
-`bennyinvest-test-zmiany.zip` zawiera tylko pliki zmienione względem poprzedniej paczki z commita `cb4627a`. Wypakuj jego zawartość do istniejącego katalogu `/test/`, zachowując strukturę folderów i nadpisując wskazane pliki. Dokładna lista: [PLIKI-DO-PODMIANY.txt](PLIKI-DO-PODMIANY.txt). Zdjęć i logotypów nie trzeba nadpisywać. Dla nowej instalacji użyj pełnego `bennyinvest-test.zip`.
+`bennyinvest-test-zmiany.zip` zawiera tylko pliki zmienione względem poprzedniej paczki z commita `b05d163`. Wypakuj jego zawartość do istniejącego katalogu `/test/`, zachowując strukturę folderów i nadpisując wskazane pliki. Dokładna lista: [PLIKI-DO-PODMIANY.txt](PLIKI-DO-PODMIANY.txt). Zdjęć i logotypów nie trzeba nadpisywać. Dla nowej instalacji użyj pełnego `bennyinvest-test.zip`.

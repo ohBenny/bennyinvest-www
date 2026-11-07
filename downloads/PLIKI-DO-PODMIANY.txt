@@ -1,9 +1,9 @@
 PLIKI DO DODANIA LUB PODMIANY W /test/
 
-Lista względem paczki z commita cb4627a.
+Lista względem paczki z commita b05d163.
 Zachowaj strukturę folderów i nadpisz te pliki:
 
-_astro/CookieNotice.Dp9i5jIf.css
+_astro/CookieNotice.Cj_KyScO.css
 index.html
 polityka-prywatnosci/index.html
 
