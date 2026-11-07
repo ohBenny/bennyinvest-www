@@ -322,7 +322,7 @@ body.quote-open { overflow: hidden; }
   .about-grid>div:last-child { order: 1; }
 }
 
-.services>.section-heading { justify-items: start; text-align: left; }
+.services>.section-heading { justify-items: center; text-align: center; }
 .combined>.section-heading { justify-items: center; text-align: center; }
 .services.section-space { padding-top: 90px; }
 .coverage>.section-heading { justify-items: end; text-align: right; }
@@ -337,8 +337,8 @@ body.quote-open { overflow: hidden; }
 }
 
 /* Wyrównanie opisów kategorii i nagłówka partnerów. */
-.service-category-heading-right { display: flex; flex-direction: column; align-items: flex-end; gap: 16px; text-align: right; }
-.service-category-heading-right>p { margin: 0; }
+.service-category-heading-left { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; text-align: left; }
+.service-category-heading-left>p { margin: 0; }
 .partners-heading { display: grid; grid-template-columns: 1fr; justify-items: center; align-items: center; position: relative; }
 .partners-heading>div { text-align: center; }
 .partners-heading #partners-pause { position: absolute; right: 0; bottom: 0; }
@@ -393,3 +393,6 @@ body.quote-open { overflow: hidden; }
   .privacy-document h2 { font-size: 24px; }
   .privacy-back { font-size: 11px; }
 }
+
+.service-item .service-title { justify-self: end; text-align: right; min-width: 0; max-width: 100%; }
+.service-item .service-row { column-gap: 18px; }
