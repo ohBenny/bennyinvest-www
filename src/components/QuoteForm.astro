@@ -1,5 +1,6 @@
 ---
 import Arrow from './Arrow.astro';
+import { sitePath } from '../utils/site';
 ---
 <dialog id="quote-dialog" aria-labelledby="quote-heading" aria-describedby="quote-intro">
   <div class="quote-panel">
@@ -19,7 +20,7 @@ import Arrow from './Arrow.astro';
         <label class="quote-wide">Orientacyjny budżet <select name="budget"><option>Do ustalenia</option><option>Do 2 000 zł</option><option>2 000–5 000 zł</option><option>5 000–10 000 zł</option><option>Powyżej 10 000 zł</option></select><span class="field-hint">Łączny planowany budżet kampanii. Jeśli jeszcze go nie znasz, wybierz „Do ustalenia”.</span></label>
         <label class="quote-wide">Co chcesz promować i osiągnąć? <textarea name="brief" rows="3" required maxlength="2000" placeholder="Opisz produkt, odbiorców i cel. Przy kolportażu podaj nakład, jeśli go znasz."></textarea></label>
       </div>
-      <p class="quote-note">Dane z formularza wykorzystamy do obsługi Twojego zapytania. Wiadomość trafi do Benny Invest Sp. z o.o. na biuro@bennyinvest.pl. Nie zapisujemy jej w przeglądarce.</p>
+      <p class="quote-note">Administratorem danych jest Benny Invest Sp. z o.o. Użyjemy ich do odpowiedzi i przygotowania oferty, na podstawie art. 6 ust. 1 lit. b lub f RODO. Informacje o odbiorcach, okresie przechowywania i Twoich prawach znajdziesz w <a href={sitePath('polityka-prywatnosci/#formularz')} target="_blank" rel="noopener noreferrer">polityce prywatności</a>.</p>
       <p id="quote-status" class="quote-status" role="status" aria-live="polite"></p>
       <button class="quote-submit" type="submit">Wyślij zapytanie <Arrow /></button>
     </form>

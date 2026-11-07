@@ -27,6 +27,7 @@ import { sitePath } from '../utils/site';
     <a id="boundary-license" href={sitePath('licencje/polska-geojson-MIT.txt')} hidden>Licencja danych granic</a>
     <script>
       import L from 'leaflet';
+      import { readPrivacyChoice } from '../utils/privacy';
       import type { GeoJsonObject } from 'geojson';
       import region from '../data/zachodniopomorskie.json';
       const map = L.map('region-map', { scrollWheelZoom: false, zoomSnap: 0.25 });
@@ -45,7 +46,23 @@ import { sitePath } from '../utils/site';
         if (map.hasLayer(tiles)) map.removeLayer(tiles);
         notice.hidden = false;
       });
-      tiles.addTo(map);
+      let started = false;
+      const startTiles = () => {
+        if (started) return;
+        started = true;
+        notice.textContent = 'Podkład mapy jest niedostępny. Czerwony obrys pokazuje granice województwa.';
+        notice.hidden = true;
+        tiles.addTo(map);
+      };
+      if (readPrivacyChoice() === 'allow') startTiles();
+      else {
+        notice.textContent = 'Podkład mapy wymaga zgody. Włącz go w ustawieniach prywatności na stronie głównej.';
+        notice.hidden = false;
+      }
+      window.addEventListener('message', event => {
+        if (event.origin === location.origin && event.source === window.parent && event.source !== window &&
+            event.data?.type === 'benny-map-consent' && event.data.allow === true) startTiles();
+      });
       new ResizeObserver(() => { map.invalidateSize(); map.fitBounds(boundary.getBounds(), { padding: [20, 20] }); }).observe(document.querySelector('#region-map')!);
     </script>
   </body>

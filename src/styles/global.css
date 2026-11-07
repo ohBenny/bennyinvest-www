@@ -346,3 +346,50 @@ body.quote-open { overflow: hidden; }
   .partners-heading { gap: 16px; }
   .partners-heading #partners-pause { position: static; }
 }
+
+/* Mniej przewijania przy zachowaniu typografii i istniejących ramek. */
+.section-space { padding-block: 84px; }
+.hero-grid { padding-block: 42px 44px; }
+.poster { max-width: 420px; margin-inline: auto; }
+.hero-intro { margin-top: 24px; }
+.section-heading { margin-bottom: 44px; }
+.services.section-space { padding-top: 70px; }
+.service-categories { gap: 48px; }
+.service-item .service-row { padding-block: 28px 32px; }
+.about-copy { margin-top: 32px; }
+.partners { padding-block: 54px; }
+.location { padding-bottom: 56px; }
+.coverage { padding-bottom: 54px; }
+.cookie-policy-link { display: inline-block; font-size: 11px; text-decoration: underline; text-underline-offset: 3px; margin-top: 12px; }
+.quote-note a { text-decoration: underline; text-underline-offset: 3px; }
+.privacy-back { font-size: 12px; }
+.privacy-document { max-width: 850px; padding-block: 64px; }
+.privacy-document h1 { font-size: clamp(35px, 5vw, 60px); line-height: 1.1; letter-spacing: -.055em; }
+.privacy-lead { margin-top: 25px; font-size: 16px; line-height: 1.9; color: #595956; }
+.privacy-date { margin-top: 18px; font-size: 12px; color: #686865; }
+.privacy-toc { display: flex; flex-wrap: wrap; gap: 12px 22px; padding-block: 26px; border-block: 1px solid #bcbcb8; margin-block: 32px; font-size: 12px; }
+.privacy-document section { padding-block: 26px; border-bottom: 1px solid #cececa; scroll-margin-top: 25px; }
+.privacy-document h2 { font-size: 27px; line-height: 1.2; letter-spacing: -.035em; margin-bottom: 20px; }
+.privacy-document p, .privacy-document li { line-height: 1.9; }
+.privacy-document section p, .privacy-document li { font-size: 14px; color: #4e4e4b; margin-bottom: 14px; }
+.privacy-document ul { list-style: disc; padding-left: 22px; }
+.privacy-document section a { text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.privacy-document code { overflow-wrap: anywhere; }
+@media (max-width: 1000px) { .section-space { padding-block: 65px; } .services.section-space { padding-top: 60px; } }
+@media (max-width: 650px) {
+  .section-space { padding-block: 48px; }
+  .hero-grid { padding-block: 28px; gap: 28px; }
+  .hero-aside { gap: 18px; }
+  .hero-aside .poster { max-width: 240px; }
+  .hero-intro { margin-top: 0; }
+  .section-heading { margin-bottom: 28px; }
+  .services.section-space { padding-top: 38px; }
+  .service-categories { gap: 34px; }
+  .service-item .service-row { padding-block: 24px; }
+  .partners { padding-block: 40px; }
+  .location { padding-bottom: 38px; }
+  .coverage { padding-bottom: 36px; }
+  .privacy-document { padding-block: 40px; }
+  .privacy-document h2 { font-size: 24px; }
+  .privacy-back { font-size: 11px; }
+}

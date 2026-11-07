@@ -1,0 +1,17 @@
+PLIKI DO DODANIA LUB PODMIANY W /test/
+
+Lista względem paczki z commita b9ab483.
+Zachowaj podane foldery. Nie trzeba usuwać strony.
+
+_astro/CookieNotice.BCor1cnE.css
+_astro/CookieNotice.astro_astro_type_script_index_0_lang.BxSQ7gYb.js
+_astro/mapa.astro_astro_type_script_index_0_lang.Daxk__Vw.js
+_astro/privacy.CV8t1j1z.js
+index.html
+mapa/index.html
+polityka-prywatnosci/index.html
+
+Paczka bennyinvest-test-zmiany.zip zawiera wyłącznie powyższe pliki.
+Zdjęć, logotypów, faviconów i API formularza nie zmieniono.
+Starych plików _astro nie trzeba usuwać, aby nowa wersja działała.
+Po wgraniu odśwież stronę Ctrl+F5.

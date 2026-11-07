@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { company } from '../data/company';
 import { sitePath } from '../utils/site';
 import ReplaceableImage from '../components/ReplaceableImage.astro';
 import Arrow from '../components/Arrow.astro';
@@ -65,7 +66,7 @@ import ServiceGallery from '../components/ServiceGallery.astro';
       <Partners />
       <section id="kontakt" class="contact shell section-space" aria-labelledby="contact-heading">
         <div class="contact-top"><h2 id="contact-heading">Co chcesz<br /><span class="muted">powiedzieć światu?</span></h2></div>
-        <div class="contact-details"><div><p>Opowiedz nam o swoim projekcie.<br />Ustalmy, od czego zacząć.</p><div class="contact-links"><a href="tel:+48576243368">+48 576 243 368</a><a href="mailto:biuro@bennyinvest.pl">biuro@bennyinvest.pl</a></div></div><div><h3>Benny Invest Sp. z o.o.</h3><p>NIP: 8513317048<br />REGON: 529454668<br />KRS: 0001123246</p></div><div><h3>Adres</h3><p>ul. 1 Maja<br />71-627 Szczecin, Polska</p></div></div>
+        <div class="contact-details"><div><p>Opowiedz nam o swoim projekcie.<br />Ustalmy, od czego zacząć.</p><div class="contact-links"><a href="tel:+48576243368">+48 576 243 368</a><a href="mailto:biuro@bennyinvest.pl">biuro@bennyinvest.pl</a></div></div><div><h3>Benny Invest Sp. z o.o.</h3><p>NIP: 8513317048<br />REGON: 529454668<br />KRS: 0001123246</p></div><div><h3>Adres</h3><p>{company.street}<br />{company.city}, Polska</p></div></div>
       </section>
       <section class="coverage shell" aria-labelledby="coverage-heading"><div class="section-heading"><div><h2 id="coverage-heading">Blisko Twoich<br /><span class="muted">odbiorców.</span></h2><p class="section-intro">Działamy w Szczecinie oraz pozostałych miejscowościach województwa zachodniopomorskiego.</p></div></div></section>
       <section class="location shell" aria-label="Mapa obszaru działania">
@@ -76,6 +77,6 @@ import ServiceGallery from '../components/ServiceGallery.astro';
     <QuoteForm />
     <CookieNotice />
     <noscript><p class="shell noscript-note">Aby poprosić o wycenę bez JavaScript, napisz na <a href="mailto:biuro@bennyinvest.pl">biuro@bennyinvest.pl</a>.</p></noscript>
-    <footer class="shell flex flex-wrap items-center justify-between gap-5"><p>© {new Date().getFullYear()} Benny Invest Sp. z o.o.</p><button id="privacy-settings" type="button">Ustawienia prywatności</button><a href="#top">Do góry <span aria-hidden="true">↑</span></a></footer>
+    <footer class="shell flex flex-wrap items-center justify-between gap-5"><p>© {new Date().getFullYear()} Benny Invest Sp. z o.o.</p><a href={sitePath('polityka-prywatnosci/')}>Polityka prywatności</a><button id="privacy-settings" type="button">Ustawienia prywatności</button><a href="#top">Do góry <span aria-hidden="true">↑</span></a></footer>
   </body>
 </html>

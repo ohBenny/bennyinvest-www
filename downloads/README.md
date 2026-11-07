@@ -7,3 +7,8 @@ Wymagane PHP 8.1+ i obsługa `mail()`. Archiwum nie zawiera kodu repozytorium, z
 Pełna instrukcja: [test na OVH](../docs/OVH-TEST.md).
 
 Po jednorazowym wgraniu całej nowej paczki możesz podmieniać same pliki w `test/zdjecia/` pod istniejącymi nazwami. Instrukcja jest w `zdjecia/JAK-PODMIENIAC.txt`. Zdjęcia dopasują się do stałych ramek; logotypy nie są przycinane.
+
+
+## Aktualizacja samych zmienionych plików
+
+`bennyinvest-test-zmiany.zip` zawiera tylko pliki zmienione względem poprzedniej paczki z commita `b9ab483`. Wypakuj jego zawartość do istniejącego katalogu `/test/`, zachowując strukturę folderów i nadpisując wskazane pliki. Dokładna lista: [PLIKI-DO-PODMIANY.txt](PLIKI-DO-PODMIANY.txt). Zdjęć i logotypów nie trzeba nadpisywać. Dla nowej instalacji użyj pełnego `bennyinvest-test.zip`.

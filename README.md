@@ -88,3 +88,8 @@ Strona mapy i iframe używają `strict-origin-when-cross-origin`. Nie ustawiaj d
 ## Lista partnerów bez kompilacji
 
 Listą logotypów zarządza `public/zdjecia/partnerzy/partnerzy.json` (na OVH: `test/zdjecia/partnerzy/partnerzy.json`). Każdy wpis ma `name` i `logo` — samą nazwę pliku PNG/JPG/JPEG/WEBP z tego folderu. Można dodawać, usuwać i zmieniać kolejność wpisów bez przebudowy strony. Pusta lista ukrywa sekcję; błędny lub niedostępny JSON pozostawia listę zapasową z HTML. Pasek powtarza sekwencję bez pustej przerwy także przy jednym logo i respektuje ograniczenie ruchu. Zdjęcie foundera ma obecnie maksymalnie 260 px szerokości. Favicon jest dostarczany jako PNG, ICO i ikona Apple; po zmianie przeglądarka może wymagać ponownego otwarcia karty.
+
+
+## Prywatność i krótszy układ
+
+Pełna informacja jest w `src/pages/polityka-prywatnosci.astro`, dane administratora w `src/data/company.ts`. Formularz odsyła do polityki i nie wymaga zgody marketingowej. Wybór mapy obsługuje `src/utils/privacy.ts`, z ważnością 180 dni, migracją starszego klucza i kontrolą pochodzenia komunikatów iframe. Szczegóły organizacyjne do zweryfikowania przez spółkę: [docs/PRYWATNOSC-WDROZENIE.md](docs/PRYWATNOSC-WDROZENIE.md). Zmniejszono pionowe odstępy i grafikę na pierwszym ekranie bez zmian w strzałkach usług i ramkach zdjęć.
